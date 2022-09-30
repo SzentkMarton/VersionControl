@@ -41,7 +41,7 @@ namespace UserMaintenance
 
         private void button2_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Fájlba írás");
+            MessageBox.Show("Törlés");
         }
     }
 }
