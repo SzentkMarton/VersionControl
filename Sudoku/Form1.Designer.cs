@@ -34,7 +34,7 @@ namespace Sudoku
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.panel1.Location = new System.Drawing.Point(112, 48);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(280, 280);
