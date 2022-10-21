@@ -1,4 +1,5 @@
-﻿using MNBCurrencyReader.MNBServiceReference;
+﻿using MNBCurrencyReader.Entities;
+using MNBCurrencyReader.MNBServiceReference;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,18 +9,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace MNBCurrencyReader
 {
     public partial class Form1 : Form
 
     {
+        BindingList<RateData> rates = new BindingList<RateData>();
+
+
         
 
         
         public Form1()
         {
             InitializeComponent();
+            Arfolyamok();
+
+            
+
+
+            dataGridView1.DataSource = rates;
+
+        }
+        public void LoadXML()
+        {
             var mnbService = new MNBArfolyamServiceSoapClient();
 
             var request = new GetExchangeRatesRequestBody()
@@ -32,9 +47,32 @@ namespace MNBCurrencyReader
 
             var response = mnbService.GetExchangeRates(request);
             var result = response.GetExchangeRatesResult;
+            var xml = new XmlDocument();
+            xml.LoadXml(result);
+            foreach (XmlElement element in xml.DocumentElement)
+            {
 
+                var rate = new RateData();
+                rates.Add(rate);
+
+                
+                rate.Date = DateTime.Parse(element.GetAttribute("date"));
+
+                
+                var childElement = (XmlElement)element.ChildNodes[0];
+                rate.Currency = childElement.GetAttribute("curr");
+
+                
+                var unit = decimal.Parse(childElement.GetAttribute("unit"));
+                var value = decimal.Parse(childElement.InnerText);
+                if (unit != 0)
+                    rate.Value = value / unit;
+            }
 
         }
+        
+
+        
 
     }
 }
