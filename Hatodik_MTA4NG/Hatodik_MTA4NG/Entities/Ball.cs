@@ -35,6 +35,6 @@ namespace Hatodik_MTA4NG.Entities
 
         }
 
-       }
+       
     }
 }
