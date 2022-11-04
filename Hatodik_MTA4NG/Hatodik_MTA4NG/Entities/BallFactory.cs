@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Hatodik_MTA4NG.Entities
 {
-    class BallFactory
+    public class BallFactory
     {
         public Ball CreateNew()
         {
