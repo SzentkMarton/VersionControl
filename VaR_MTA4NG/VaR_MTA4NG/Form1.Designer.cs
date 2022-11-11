@@ -40,15 +40,15 @@ namespace VaR_MTA4NG
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(12, 97);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(361, 341);
+            this.dataGridView1.Size = new System.Drawing.Size(377, 341);
             this.dataGridView1.TabIndex = 0;
             // 
             // dataGridView2
             // 
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(455, 97);
+            this.dataGridView2.Location = new System.Drawing.Point(395, 97);
             this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(324, 341);
+            this.dataGridView2.Size = new System.Drawing.Size(384, 341);
             this.dataGridView2.TabIndex = 1;
             // 
             // Form1
