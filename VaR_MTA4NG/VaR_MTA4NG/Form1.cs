@@ -21,6 +21,11 @@ namespace VaR_MTA4NG
             InitializeComponent();
             Ticks = context.Tick.ToList();
             dataGridView1.DataSource = Ticks;
+
+           
+
+
+
             List<decimal> Nyereségek = new List<decimal>();
             int intervalum = 30;
             DateTime kezdőDátum = (from x in Ticks select x.TradingDay).Min();
