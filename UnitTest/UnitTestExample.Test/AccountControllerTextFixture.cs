@@ -4,6 +4,7 @@ using System.Activities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using UnitTestExample.Controllers;
 
@@ -42,7 +43,13 @@ namespace UnitTestExample.Test
         public void TestValidatePassword(string pw, bool expectedResult)
         {
             var accountController = new AccountController();
+            /*bool CheckPassword(string pw)
+            {
+                Regex regex = new Regex()
+            }
+            */
             var actualResult = accountController.ValidatePassword(pw);
+
             Assert.AreEqual(expectedResult, actualResult);
 
         }
@@ -57,7 +64,7 @@ namespace UnitTestExample.Test
             var accountController = new AccountController();
             var actualResult = accountController.Register(email, password);
             Assert.AreEqual(email, actualResult.Email);
-            Assert.AreEqual(password, actualResult.Email);
+            Assert.AreEqual(password, actualResult.Password);
             Assert.AreNotEqual(Guid.Empty, actualResult.ID);
 
 
@@ -83,7 +90,7 @@ namespace UnitTestExample.Test
             catch (Exception ex)
             {
 
-                Assert.IsInstanceOf<ValidationException>(ex);
+                Assert.IsInstanceOf<AssertionException>(ex);
             }
         }
 
