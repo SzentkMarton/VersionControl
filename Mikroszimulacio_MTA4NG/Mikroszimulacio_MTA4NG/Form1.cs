@@ -19,6 +19,9 @@ namespace Mikroszimulacio_MTA4NG
         List<BirthProbability> BP = new List<BirthProbability>();
         List<DeathProbability> DP = new List<DeathProbability>();
         Random rng = new Random(1234);
+        List<int> MalePopulation = new List<int>();
+        List<int> FemalePopulation = new List<int>();
+
 
 
         public Form1()
@@ -66,6 +69,7 @@ namespace Mikroszimulacio_MTA4NG
                         NumberOfChildren = int.Parse(line[2])
 
                     });
+                    
 
 
                 }
