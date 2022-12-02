@@ -24,26 +24,31 @@ namespace Mikroszimulacio_MTA4NG
         public Form1()
         {
             InitializeComponent();
+            
+        }
+        public void Simulation()
+        {
             Population = GetPopulation(@"C:\Temp\nép.csv");
             BP = GetBP(@"C:\Temp\születés.csv");
             DP = GetDP(@"C:\Temp\halál.csv");
 
-            for (int year = 2005; year <= 2024; year++)
+            for (int year = 2005; year <= numericUpDown1.Value; year++)
             {
                 for (int i = 0; i < Population.Count(); i++)
                 {
-
+                    SimStep(year, Population[i]);
                 }
                 int numMales = (from x in Population
                                 where x.Gender == Gender.Male && x.IsAlive
                                 select x).Count();
                 int numFemales = (from x in Population
-                                where x.Gender == Gender.Female && x.IsAlive
-                                select x).Count();
-                Console.WriteLine (string.Format("Év:{0} Fiúk:{1} Lányok:{2}", year, numMales, numFemales));
+                                  where x.Gender == Gender.Female && x.IsAlive
+                                  select x).Count();
+                Console.WriteLine(string.Format("Év:{0} Fiúk:{1} Lányok:{2}", year, numMales, numFemales));
 
             }
         }
+
 
         public List<Person> GetPopulation(string csvpath)
         {
@@ -138,6 +143,26 @@ namespace Mikroszimulacio_MTA4NG
                     Population.Add(newborn);
                 }
             }
+        }
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            Simulation();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+
+            ofd.InitialDirectory = "C:/Temp";
+            if (ofd.ShowDialog() != DialogResult.OK) return;
+            {
+                textBox1.Text = ofd.FileName;
+            };
+
+
+
+
         }
     }
 }
