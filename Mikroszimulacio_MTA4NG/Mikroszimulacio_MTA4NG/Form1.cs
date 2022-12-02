@@ -18,6 +18,8 @@ namespace Mikroszimulacio_MTA4NG
         List<Person> Population = new List<Person>();
         List<BirthProbability> BP = new List<BirthProbability>();
         List<DeathProbability> DP = new List<DeathProbability>();
+        Random rng = new Random(1234);
+
 
         public Form1()
         {
@@ -25,6 +27,22 @@ namespace Mikroszimulacio_MTA4NG
             Population = GetPopulation(@"C:\Temp\nép.csv");
             BP = GetBP(@"C:\Temp\születés.csv");
             DP = GetDP(@"C:\Temp\halál.csv");
+
+            for (int year = 2005; year <= 2024; year++)
+            {
+                for (int i = 0; i < Population.Count(); i++)
+                {
+
+                }
+                int numMales = (from x in Population
+                                where x.Gender == Gender.Male && x.IsAlive
+                                select x).Count();
+                int numFemales = (from x in Population
+                                where x.Gender == Gender.Female && x.IsAlive
+                                select x).Count();
+                Console.WriteLine (string.Format("Év:{0} Fiúk:{1} Lányok:{2}", year, numMales, numFemales));
+
+            }
         }
 
         public List<Person> GetPopulation(string csvpath)
@@ -95,6 +113,31 @@ namespace Mikroszimulacio_MTA4NG
             }
             return dp;
 
+        }
+
+        private void SimStep(int year, Person person)
+        {
+            if (!person.IsAlive) return;
+            byte age = (byte)(year - person.BirthYear);
+            double pDeath = (from x in DP
+                             where x.gender == person.Gender && x.Age == age
+                             select x.ProbOfDeath).FirstOrDefault();
+            if (rng.NextDouble() <= pDeath)
+                person.IsAlive = false;
+            if (person.IsAlive && person.Gender == Gender.Female)
+            {
+                double pBirth = (from x in BP
+                                 where x.Age == age
+                                 select x.ProbOfBirth).FirstOrDefault();
+                if (rng.NextDouble() <= pBirth)
+                {
+                    Person newborn = new Person();
+                    newborn.BirthYear = year;
+                    newborn.NumberOfChildren = 0;
+                    newborn.Gender = (Gender)(rng.Next(1, 3));
+                    Population.Add(newborn);
+                }
+            }
         }
     }
 }
